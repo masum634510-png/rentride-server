@@ -67,7 +67,10 @@ async function run() {
     // Generate JWT Token
     app.post("/jwt", async (req, res) => {
       const user = req.body;
-      const token = jwt.sign(user, process.env.JWT_SECRET, {
+      if (!user || !user.email) {
+        return res.status(400).send({ message: "Email is required for token generation" });
+      }
+      const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
         expiresIn: "7d",
       });
       res
