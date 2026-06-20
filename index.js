@@ -259,14 +259,17 @@ async function run() {
         const booking = await bookingsCollection.findOne({
           _id: new ObjectId(id),
         });
+        if (!booking) {
+          return res.status(404).send({ message: "Booking not found" });
+        }
         if (booking.userEmail !== req.user.email) {
           return res.status(403).send({ message: "Forbidden" });
         }
 
-        // Restore car availability
+        // Restore car availability and decrement bookingCount
         await carsCollection.updateOne(
           { _id: new ObjectId(booking.carId) },
-          { $set: { availability: "Available" } }
+          { $inc: { bookingCount: -1 }, $set: { availability: "Available" } }
         );
 
         const result = await bookingsCollection.deleteOne({
