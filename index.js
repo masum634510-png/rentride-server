@@ -275,7 +275,7 @@ async function run() {
 
     // Health check
     app.get("/", (req, res) => {
-      res.send({ message: "🚗 DriveFleet API is running!" });
+      res.send({ message: "🚗 RentRide API is running!" });
     });
 
     console.log("🚀 All routes registered successfully!");
@@ -287,5 +287,5 @@ async function run() {
 run().catch(console.dir);
 
 app.listen(port, () => {
-  console.log(`🚗 DriveFleet server running on port ${port}`);
+  console.log(`🚗 RentRide server running on port ${port}`);
 });
