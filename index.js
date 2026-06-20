@@ -204,6 +204,20 @@ async function run() {
     // Add Booking (Protected)
     app.post("/bookings", verifyToken, async (req, res) => {
       try {
+        const { carId } = req.body;
+        if (!carId) {
+          return res.status(400).send({ message: "Car ID is required" });
+        }
+
+        const car = await carsCollection.findOne({ _id: new ObjectId(carId) });
+        if (!car) {
+          return res.status(404).send({ message: "Car not found" });
+        }
+
+        if (car.availability === "Unavailable") {
+          return res.status(400).send({ message: "Car is already booked and unavailable" });
+        }
+
         const booking = {
           ...req.body,
           userEmail: req.user.email,
@@ -214,7 +228,7 @@ async function run() {
 
         // Increment booking count using $inc
         await carsCollection.updateOne(
-          { _id: new ObjectId(req.body.carId) },
+          { _id: new ObjectId(carId) },
           { $inc: { bookingCount: 1 }, $set: { availability: "Unavailable" } }
         );
 
