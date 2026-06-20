@@ -13,6 +13,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:3000",
+  "https://client-ivory-xi.vercel.app",
 ];
 if (process.env.CLIENT_URL) {
   allowedOrigins.push(process.env.CLIENT_URL);
@@ -326,4 +327,10 @@ run().catch(console.dir);
 
 app.listen(port, () => {
   console.log(`🚗 RentRide server running on port ${port}`);
+  // Ping itself every 14 minutes to prevent Render sleep
+  setInterval(() => {
+    fetch(`https://rentride-server.onrender.com`)
+      .then(res => console.log(`[${new Date().toISOString()}] Pinged server to prevent sleep: ${res.status}`))
+      .catch(err => console.error(`[${new Date().toISOString()}] Ping error:`, err));
+  }, 14 * 60 * 1000);
 });
