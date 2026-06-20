@@ -1,7 +1,7 @@
 {
-  "name": "drivefleet-server",
+  "name": "rentride-server",
   "version": "1.0.0",
-  "description": "DriveFleet Car Rental Platform - Backend API",
+  "description": "RentRide Car Rental Platform - Backend API",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
