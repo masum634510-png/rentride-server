@@ -1,6 +1,8 @@
-# DriveFleet Server
+# 🚗 RentRide Server
 
-Backend API for the DriveFleet Car Rental Platform.
+Backend API for the RentRide Car Rental Platform.
+
+**API Server URL:** [https://rentride-server.onrender.com](https://rentride-server.onrender.com)
 
 ## Setup
 
