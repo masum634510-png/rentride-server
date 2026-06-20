@@ -278,6 +278,15 @@ async function run() {
       res.send({ message: "🚗 RentRide API is running!" });
     });
 
+    // Global Error Handler
+    app.use((err, req, res, next) => {
+      console.error("Unhandled Error:", err.stack);
+      res.status(500).send({
+        success: false,
+        message: err.message || "Internal Server Error",
+      });
+    });
+
     console.log("🚀 All routes registered successfully!");
   } catch (err) {
     console.error("MongoDB connection error:", err);
