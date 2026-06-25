@@ -1,40 +1,46 @@
-# 🚗 RentRide Server
+# RentRide - Server
 
 Backend API for the RentRide Car Rental Platform.
 
-**API Server URL:** [https://rentride-server.onrender.com](https://rentride-server.onrender.com)
+## Tech Stack
 
-## Setup
-
-```bash
-npm install
-npm run dev
-```
+- Node.js + Express.js
+- MongoDB (Atlas)
+- JWT Authentication (HTTPOnly Cookies)
+- CORS
 
 ## Environment Variables
 
-Create a `.env` file:
+Create a `.env` file with:
 
-```
-MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/drivefleet
-JWT_SECRET=your_jwt_secret
+```env
 PORT=5000
+MONGODB_URI=your_mongodb_atlas_uri
+JWT_SECRET=your_jwt_secret_key
 NODE_ENV=development
+CLIENT_URL=https://your-client-domain.vercel.app
+```
+
+## Run Locally
+
+```bash
+npm install
+npm start
 ```
 
 ## API Endpoints
 
-| Method | Route | Auth | Description |
-|--------|-------|------|-------------|
-| POST | /jwt | ❌ | Generate JWT token |
-| POST | /logout | ❌ | Clear JWT cookie |
-| GET | /cars | ❌ | Get all cars (search, filter, sort) |
-| GET | /cars/:id | ❌ | Get single car |
-| POST | /cars | ✅ | Add new car |
-| PUT | /cars/:id | ✅ | Update car |
-| DELETE | /cars/:id | ✅ | Delete car |
-| GET | /my-cars | ✅ | Get owner's cars |
-| POST | /bookings | ✅ | Create booking |
-| GET | /bookings | ✅ | Get user bookings |
-| DELETE | /bookings/:id | ✅ | Cancel booking |
-| POST | /users | ❌ | Save user to DB |
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | /jwt | No | Generate JWT token |
+| POST | /logout | No | Clear cookie |
+| POST | /users | No | Save user to DB |
+| GET | /cars | No | Get all cars |
+| GET | /cars/:id | No | Get single car |
+| POST | /cars | Yes | Add a car |
+| PUT | /cars/:id | Yes | Update a car |
+| DELETE | /cars/:id | Yes | Delete a car |
+| GET | /my-cars | Yes | Get owner's cars |
+| GET | /bookings | Yes | Get user bookings |
+| POST | /bookings | Yes | Book a car |
+| DELETE | /bookings/:id | Yes | Cancel booking |
